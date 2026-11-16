@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر أبو محمود لقطع الدراجات النارية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --accent: #f97316;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --bg-image: none;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            opacity: 0.85;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 2px solid var(--accent);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            font-size: 2.5rem;
+            background: var(--accent);
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+
+        .brand h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .brand p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.6rem 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.15s, opacity 0.2s;
+            color: #fff;
+            background-color: var(--accent);
+        }
+
+        .btn:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+        }
+
+        .btn-success {
+            background-color: #10b981;
+        }
+
+        .controls-bar {
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pricing-toggle {
+            display: flex;
+            background: var(--bg-card);
+            padding: 5px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .pricing-toggle button {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            background: transparent;
+            color: var(--text-main);
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .pricing-toggle button.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.65rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .product-body {
+            padding: 1.2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.8rem;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-main);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.8rem;
+        }
+
+        .tab-btn {
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            margin-bottom: 0.6rem;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .sham-box {
+            background: var(--bg-primary);
+            border: 1px dashed var(--accent);
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .theme-presets {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .admin-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-primary);
+            padding: 0.8rem;
+            border-radius: 10px;
+            margin-bottom: 0.6rem;
+            gap: 10px;
+        }
+
+        .sync-badge {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .qr-container {
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 14px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        #storeQrCanvas img, #storeQrCanvas canvas {
+            display: block !important;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-top">
+        <div class="brand">
+            <div class="brand-icon">🏍</div>
+            <div>
+                <h1 id="displayStoreName">متجر أبو محمود</h1>
+                <p id="displayStoreSub">قطع غيار واكسسوارات الدراجات النارية</p>
+                <span id="cloudStatus" class="sync-badge">☁ متصل بالسحابة</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="openStoreQrModal()">📱 باركود المتجر</button>
+            <button class="btn btn-secondary" onclick="openAdminAuth()">⚙ الإدارة</button>
+            <button class="btn" onclick="openModal('cartModal')">🛒 السلة (<span id="cartCount">0</span>)</button>
+        </div>
+    </div>
+</header>
+
+<div class="controls-bar">
+    <div class="pricing-toggle">
+        <button id="btnRetail" class="active" onclick="setPriceMode('retail')">🏷 تسعير المفرق</button>
+        <button id="btnWholesale" onclick="setPriceMode('wholesale')">📦 تسعير الجملة</button>
+    </div>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 ابحث عن قطعة غيار..." oninput="renderProducts()">
+    </div>
+</div>
+
+<main class="products-grid" id="productsGrid">
+    <p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">جاري تحميل المنتجات من السحابة...</p>
+</main>
+
+<!-- Store QR Modal -->
+<div class="modal" id="storeQrModal">
+    <div class="modal-content" style="text-align: center;">
+        <div class="modal-header">
+            <h3>📱 باركود الدخول إلى المتجر</h3>
+            <button class="close-btn" onclick="closeModal('storeQrModal')">✕</button>
+        </div>
+        <p style="color: var(--text-muted); margin-bottom: 0.5rem;">امسح الرمز بكاميرا الهاتف للدخول مباشرة إلى واجهة المتجر وتصفح القطع</p>
+        <div id="localFileNotice" style="display: none; background: rgba(249, 115, 22, 0.15); border: 1px solid var(--accent); color: var(--text-main); padding: 8px; border-radius: 8px; font-size: 0.82rem; margin-bottom: 0.8rem;">
+            ملاحظة: أنت تفتح المتجر حالياً كملف محلي على جهازك. عند رفعه على الإنترنت سيحمل الباركود رابط الموقع تلقائياً، أو يمكنك كتابة رابط المتجر أدناه لتوليد باركود له فوراً:
+            <input type="text" id="customQrUrlInput" class="form-control" style="margin-top: 6px; text-align: left; direction: ltr;" placeholder="https://example.com" oninput="generateStoreQr(this.value)">
+        </div>
+        <div class="qr-container">
+            <div id="storeQrCanvas"></div>
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn" onclick="downloadStoreQr()">📥 تحميل الباركود</button>
+            <button class="btn btn-secondary" onclick="copyStoreLink()">🔗 نسخ الرابط</button>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Modal -->
+<div class="modal" id="cartModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>🛒 سلة المشتريات وإتمام الطلب</h2>
+            <button class="close-btn" onclick="closeModal('cartModal')">✕</button>
+        </div>
+        <div id="cartItemsContainer"></div>
+        <h3 style="margin: 1rem 0; color: var(--accent);">الإجمالي المطلوب: <span id="cartTotal">0</span> $ (<span id="cartModeLabel">مفرق</span>)</h3>
+        
+        <div class="form-group">
+            <label>الاسم الكامل للزبون *</label>
+            <input type="text" id="custName" class="form-control" placeholder="أدخل اسمك الكامل">
+        </div>
+        <div class="form-group">
+            <label>رقم الهاتف / واتساب *</label>
+            <input type="tel" id="custPhone" class="form-control" placeholder="مثال: 09xxxxxxxx">
+        </div>
+        <div class="form-group">
+            <label>العنوان بالتفصيل *</label>
+            <input type="text" id="custAddress" class="form-control" placeholder="المدينة - الحي - الشارع">
+        </div>
+        <div class="form-group">
+            <label>طريقة الدفع</label>
+            <select id="paymentMethod" class="form-control" onchange="togglePaymentBox()">
+                <option value="cod">💵 الدفع عند الاستلام</option>
+                <option value="shamcash">💳 الدفع عبر شام كاش</option>
+            </select>
+        </div>
+
+        <div id="shamCashCheckoutBox" class="sham-box" style="display: none;">
+            <p style="font-weight: bold; margin-bottom: 0.5rem;">بيانات التحويل عبر شام كاش (Sham Cash):</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">يرجى تحويل المبلغ الإجمالي إلى الحساب التالي ثم إدخال رقم العملية:</p>
+            <div style="margin: 0.8rem 0; display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <strong id="displayShamAccount" style="font-size: 1.1rem; color: var(--accent);">لم يتم تحديد الحساب بعد</strong>
+                <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.8rem;" onclick="copyShamAccount()">نسخ الرقم</button>
+            </div>
+            <img id="displayShamQr" src="" alt="Sham Cash QR" style="max-width: 160px; border-radius: 8px; margin: 0.5rem auto; display: none;">
+            <div class="form-group" style="text-align: right; margin-top: 0.8rem;">
+                <label>رقم عملية التحويل (إلزامي عند الدفع بشام كاش)</label>
+                <input type="text" id="shamTxId" class="form-control" placeholder="أدخل رقم العملية من تطبيق شام كاش">
+            </div>
+        </div>
+
+        <button class="btn btn-success" style="width: 100%; justify-content: center; font-size: 1.05rem; padding: 0.85rem;" onclick="submitOrder()">📲 إرسال الطلب عبر واتساب</button>
+    </div>
+</div>
+
+<!-- Admin Auth Modal -->
+<div class="modal" id="adminAuthModal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h3>🔒 دخول إدارة المتجر</h3>
+            <button class="close-btn" onclick="closeModal('adminAuthModal')">✕</button>
+        </div>
+        <div class="form-group">
+            <label>كلمة مرور الإدارة (الافتراضية: 1234)</label>
+            <input type="password" id="adminPassInput" class="form-control" placeholder="****">
+        </div>
+        <button class="btn" style="width: 100%; justify-content: center;" onclick="verifyAdmin()">دخول</button>
+    </div>
+</div>
+
+<!-- Admin Panel Modal -->
+<div class="modal" id="adminPanelModal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h2>⚙ لوحة إدارة المتجر المتقدمة</h2>
+            <button class="close-btn" onclick="closeModal('adminPanelModal')">✕</button>
+        </div>
+
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('ordersTab', this)">📋 الطلبات الواردة (<span id="ordersCountBadge">0</span>)</button>
+            <button class="tab-btn" onclick="switchTab('productsTab', this)">📦 المنتجات</button>
+            <button class="tab-btn" onclick="switchTab('themeTab', this)">🎨 ألوان ومظهر المتجر</button>
+            <button class="tab-btn" onclick="switchTab('settingsTab', this)">💳 شام كاش والإعدادات</button>
+        </div>
+
+        <!-- Tab 1: Orders -->
+        <div id="ordersTab" class="tab-pane active">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem;">
+                <button class="btn btn-secondary" onclick="toggleSelectAllOrders()">تحديد الكل</button>
+                <button class="btn btn-danger" onclick="deleteSelectedOrders()">🗑 حذف المحدد</button>
+                <button class="btn btn-danger" onclick="deleteAllOrders()">⚠ حذف جميع الطلبات</button>
+            </div>
+            <div id="adminOrdersList"></div>
+        </div>
+
+        <!-- Tab 2: Products -->
+        <div id="productsTab" class="tab-pane">
+            <h3 style="margin-bottom: 1rem;">➕ إضافة قطعة جديدة</h3>
+            <div class="form-group">
+                <label>اسم القطعة *</label>
+                <input type="text" id="prodName" class="form-control" placeholder="مثال: طقم كوليه أمامي">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                    <label>سعر المفرق ($) *</label>
+                    <input type="number" step="0.01" id="prodRetail" class="form-control" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>سعر الجملة ($) *</label>
+                    <input type="number" step="0.01" id="prodWholesale" class="form-control" placeholder="0.00">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>رقم الباركود (مخفي للبحث السحابي)</label>
+                <input type="text" id="prodBarcode" class="form-control" placeholder="أدخل رقم الباركود">
+            </div>
+            <div class="form-group">
+                <label>وصف القطعة</label>
+                <textarea id="prodDesc" class="form-control" rows="2" placeholder="تفاصيل ومواصفات القطعة..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>صورة القطعة (اختر صورة من جهازك أو هاتفك):</label>
+                <input type="file" id="prodImgFile" accept="image/*" class="form-control" onchange="handleImageUpload(this, 'prodImgPreview')">
+                <img id="prodImgPreview" style="max-height: 100px; margin-top: 8px; border-radius: 8px; display: none;">
+            </div>
+            <button class="btn btn-success" style="width: 100%; justify-content: center; margin-bottom: 1.5rem;" onclick="addProduct()">💾 حفظ القطعة في المتجر</button>
+
+            <h3 style="margin-bottom: 0.8rem;">📋 قائمة المنتجات الحالية</h3>
+            <div id="adminProductsList"></div>
+        </div>
+
+        <!-- Tab 3: Theme -->
+        <div id="themeTab" class="tab-pane">
+            <h3 style="margin-bottom: 0.5rem;">🌈 تخصيص ألوان المتجر (ألوان غير محدودة)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">اختر أي درجة لونية بحرية كاملة لكل عنصر في المتجر أو اختر من القوالب الجاهزة:</p>
+            
+            <div class="theme-presets">
+                <button class="btn btn-secondary" onclick="applyPreset('#0f172a','#1e293b','#f97316','#f8fafc')">🌑 كحلي وبرتقالي (الافتراضي)</button>
+                <button class="btn btn-secondary" onclick="applyPreset('#09090b','#18181b','#ef4444','#fafafa')">🔥 أسود ملكي وأحمر</button>
+                <button class="btn btn-secondary" onclick="applyPreset('#022c22','#064e3b','#10b981','#ecfdf5')">🌲 أخضر زمردي</button>
+                <button class="btn btn-secondary" onclick="applyPreset('#1e1b4b','#312e81','#06b6d4','#f8fafc')">🌌 بنفسجي وسماوي</button>
+                <button class="btn btn-secondary" onclick="applyPreset('#f1f5f9','#ffffff','#ea580c','#0f172a')">☀ وضع نهاري فاتح</button>
+            </div>
+
+            <div class="color-grid">
+                <div class="form-group">
+                    <label>لون الخلفية الأساسي</label>
+                    <input type="color" id="colorBgPrimary" value="#0f172a" class="form-control" style="height: 45px;">
+                </div>
+                <div class="form-group">
+                    <label>لون البطاقات والقوائم</label>
+                    <input type="color" id="colorBgCard" value="#1e293b" class="form-control" style="height: 45px;">
+                </div>
+                <div class="form-group">
+                    <label>لون الأزرار والتمييز</label>
+                    <input type="color" id="colorAccent" value="#f97316" class="form-control" style="height: 45px;">
+                </div>
+                <div class="form-group">
+                    <label>لون النصوص الرئيسية</label>
+                    <input type="color" id="colorTextMain" value="#f8fafc" class="form-control" style="height: 45px;">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>صورة خلفية المتجر (اختياري - ارفع صورة من هاتفك أو جهازك):</label>
+                <input type="file" id="bgImgFile" accept="image/*" class="form-control" onchange="handleBgUpload(this)">
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-success" onclick="saveThemeSettings()">✅ تطبيق وحفظ الألوان والخلفية</button>
+                <button class="btn btn-secondary" onclick="removeBgImage()">🔄 إزالة صورة الخلفية</button>
+                <button class="btn btn-danger" onclick="resetTheme()">↺ استعادة الألوان الافتراضية</button>
+            </div>
+        </div>
+
+        <!-- Tab 4: Settings -->
+        <div id="settingsTab" class="tab-pane">
+            <h3 style="margin-bottom: 0.5rem;">📱 باركود الدخول إلى واجهة المتجر</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem;">اطبع هذا الباركود وضعه في المحل ليتمكن الزبائن من الدخول مباشرة إلى واجهة المتجر</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                <button class="btn btn-secondary" onclick="openStoreQrModal()">👁 معاينة الباركود</button>
+                <button class="btn" onclick="downloadStoreQr()">📥 تحميل صورة باركود المتجر</button>
+            </div>
+
+            <h3 style="margin-bottom: 0.8rem;">💳 إعدادات الدفع عبر شام كاش (Sham Cash)</h3>
+            <div class="form-group">
+                <label>رقم حساب شام كاش أو المعرّف</label>
+                <input type="text" id="setShamAccount" class="form-control" placeholder="أدخل رقم الحساب أو المعرف">
+            </div>
+            <div class="form-group">
+                <label>صورة رمز QR لحساب شام كاش (اختياري - ارفعها من هاتفك):</label>
+                <input type="file" id="shamQrFile" accept="image/*" class="form-control" onchange="handleImageUpload(this, 'setShamQrPreview')">
+                <img id="setShamQrPreview" style="max-height: 100px; margin-top: 8px; border-radius: 8px; display: none;">
+            </div>
+
+            <h3 style="margin: 1.2rem 0 0.8rem;">🏪 الإعدادات العامة</h3>
+            <div class="form-group">
+                <label>اسم المتجر</label>
+                <input type="text" id="setStoreName" class="form-control" value="متجر أبو محمود">
+            </div>
+            <div class="form-group">
+                <label>الوصف الفرعي للمتجر</label>
+                <input type="text" id="setStoreSub" class="form-control" value="قطع غيار واكسسوارات الدراجات النارية">
+            </div>
+            <div class="form-group">
+                <label>رقم واتساب المتجر لاستقبال الطلبات (مع رمز الدولة بدون +)</label>
+                <input type="text" id="setWhatsapp" class="form-control" placeholder="مثال: 9639xxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>تغيير كلمة مرور لوحة الإدارة</label>
+                <input type="text" id="setAdminPass" class="form-control" placeholder="اتركه فارغاً للإبقاء على الحالية">
+            </div>
+
+            <h3 style="margin: 1.2rem 0 0.8rem;">☁ إعدادات الربط السحابي والباركود المخفية (متقدم)</h3>
+            <div class="form-group">
+                <label>رابط قاعدة البيانات السحابية (Firebase Realtime DB URL)</label>
+                <input type="text" id="setFirebaseUrl" class="form-control" value="https://abu-mahmoud-store-default-rtdb.firebaseio.com">
+            </div>
+            <div class="form-group">
+                <label>بحث سحابي سريع برقم الباركود (للإدارة فقط)</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="barcodeSearchInput" class="form-control" placeholder="أدخل أو امسح رقم الباركود...">
+                    <button class="btn" onclick="searchByBarcode()">🔍 بحث</button>
+                </div>
+                <div id="barcodeSearchResult" style="margin-top: 0.8rem;"></div>
+            </div>
+
+            <button class="btn btn-success" style="width: 100%; justify-content: center; margin-top: 1rem; padding: 0.85rem;" onclick="saveAllSettings()">💾 حفظ كافة الإعدادات</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const DEFAULT_DB_URL = "https://abu-mahmoud-store-default-rtdb.firebaseio.com";
+
+    let state = {
+        priceMode: 'retail',
+        cart: [],
+        products: {},
+        orders: {},
+        settings: {
+            storeName: "متجر أبو محمود",
+            storeSub: "قطع غيار واكسسوارات الدراجات النارية",
+            whatsapp: "",
+            adminPass: "1234",
+            shamAccount: "",
+            shamQr: "",
+            firebaseUrl: DEFAULT_DB_URL
+        },
+        theme: {
+            bgPrimary: "#0f172a",
+            bgCard: "#1e293b",
+            accent: "#f97316",
+            textMain: "#f8fafc",
+            bgImage: ""
+        }
+    };
+
+    let tempProdImg = "";
+    let tempShamQr = "";
+    let tempBgImg = "";
+    let currentQrTargetUrl = "";
+
+    function getDbUrl() {
+        let url = (state.settings.firebaseUrl || DEFAULT_DB_URL).trim();
+        return url.replace(/\/+$/, "");
+    }
+
+    async function initStore() {
+        const savedUrl = localStorage.getItem("abumahmoud_db_url");
+        if (savedUrl) state.settings.firebaseUrl = savedUrl;
+
+        generateStoreQr();
+        await syncFromCloud();
+    }
+
+    async function syncFromCloud() {
+        const statusEl = document.getElementById("cloudStatus");
+        try {
+            statusEl.textContent = "⏳ جاري المزامنة...";
+            const res = await fetch(`${getDbUrl()}/storeData.json`);
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            const data = await res.json();
+
+            if (data) {
+                if (data.products) state.products = data.products;
+                if (data.orders) state.orders = data.orders;
+                if (data.settings) {
+                    state.settings = { ...state.settings, ...data.settings };
+                    if (!state.settings.firebaseUrl) state.settings.firebaseUrl = DEFAULT_DB_URL;
+                }
+                if (data.theme) state.theme = { ...state.theme, ...data.theme };
+            }
+
+            applyThemeToDOM();
+            applySettingsToDOM();
+            renderProducts();
+            renderAdminLists();
+            statusEl.textContent = "☁ متصل بالسحابة ومحدّث";
+            statusEl.style.color = "#10b981";
+        } catch (err) {
+            console.error("Cloud Sync Error:", err);
+            statusEl.textContent = "⚠ تعذر الاتصال بالسحابة (تأكد من Rules)";
+            statusEl.style.color = "#ef4444";
+            renderProducts();
+        }
+    }
+
+    async function saveToCloud(path, payload) {
+        const statusEl = document.getElementById("cloudStatus");
+        try {
+            statusEl.textContent = "⏳ جاري الحفظ سحابياً...";
+            const res = await fetch(`${getDbUrl()}/storeData/${path}.json`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error("Failed to save");
+            statusEl.textContent = "☁ تم الحفظ في السحابة";
+            statusEl.style.color = "#10b981";
+            return true;
+        } catch (err) {
+            alert("حدث خطأ أثناء الحفظ في السحابة! تأكد من تفعيل صلاحيات القراءة والكتابة في Firebase.");
+            statusEl.textContent = "⚠ فشل الحفظ السحابي";
+            statusEl.style.color = "#ef4444";
+            return false;
+        }
+    }
+
+    function compressImage(file, maxWidth = 600, quality = 0.7) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+                    resolve(canvas.toDataURL("image/jpeg", quality));
+                };
+            };
+        });
+    }
+
+    async function handleImageUpload(input, previewId) {
+        if (input.files && input.files[0]) {
+            const compressed = await compressImage(input.files[0], 600, 0.72);
+            const preview = document.getElementById(previewId);
+            preview.src = compressed;
+            preview.style.display = "block";
+            if (previewId === "prodImgPreview") tempProdImg = compressed;
+            if (previewId === "setShamQrPreview") tempShamQr = compressed;
+        }
+    }
+
+    async function handleBgUpload(input) {
+        if (input.files && input.files[0]) {
+            tempBgImg = await compressImage(input.files[0], 1000, 0.65);
+            alert("تم تجهيز صورة الخلفية، اضغط على (تطبيق وحفظ الألوان والخلفية) لاعتمادها.");
+        }
+    }
+
+    function setPriceMode(mode) {
+        state.priceMode = mode;
+        document.getElementById("btnRetail").classList.toggle("active", mode === "retail");
+        document.getElementById("btnWholesale").classList.toggle("active", mode === "wholesale");
+        document.getElementById("cartModeLabel").textContent = mode === "retail" ? "مفرق" : "جملة";
+        renderProducts();
+        renderCart();
+    }
+
+    function renderProducts() {
+        const grid = document.getElementById("productsGrid");
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        const items = Object.entries(state.products || {});
+
+        const filtered = items.filter(([id, p]) =>
+            (p.name && p.name.toLowerCase().includes(query)) ||
+            (p.desc && p.desc.toLowerCase().includes(query))
+        );
+
+        if (filtered.length === 0) {
+            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 2rem;">لا توجد قطع متوفرة حالياً تطابق بحثك.</p>`;
+            return;
+        }
+
+        grid.innerHTML = filtered.map(([id, p]) => {
+            const price = state.priceMode === "retail" ? p.retail : p.wholesale;
+            const imgHtml = p.image
+                ? `<img src="${p.image}" alt="${p.name}" class="product-img">`
+                : `<div class="product-img">⚙️</div>`;
+            return `
+                <div class="product-card">
+                    ${imgHtml}
+                    <div class="product-body">
+                        <div>
+                            <h3 class="product-title">${p.name}</h3>
+                            <p class="product-desc">${p.desc || "قطع غيار أصلية ومكفولة"}</p>
+                        </div>
+                        <div class="product-footer">
+                            <span class="product-price">${Number(price).toFixed(2)} $</span>
+                            <button class="btn" onclick="addToCart('${id}')">➕ أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    function addToCart(id) {
+        const existing = state.cart.find(item => item.id === id);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            state.cart.push({ id, qty: 1 });
+        }
+        updateCartCount();
+        renderCart();
+    }
+
+    function changeQty(id, delta) {
+        const idx = state.cart.findIndex(item => item.id === id);
+        if (idx > -1) {
+            state.cart[idx].qty += delta;
+            if (state.cart[idx].qty <= 0) state.cart.splice(idx, 1);
+        }
+        updateCartCount();
+        renderCart();
+    }
+
+    function updateCartCount() {
+        const totalQty = state.cart.reduce((sum, item) => sum + item.qty, 0);
+        document.getElementById("cartCount").textContent = totalQty;
+    }
+
+    function renderCart() {
+        const container = document.getElementById("cartItemsContainer");
+        let total = 0;
+
+        if (state.cart.length === 0) {
+            container.innerHTML = `<p style="text-align: center; color: var(--text-muted); padding: 1rem;">السلة فارغة حالياً</p>`;
+            document.getElementById("cartTotal").textContent = "0";
+            return;
+        }
+
+        container.innerHTML = state.cart.map(item => {
+            const prod = state.products[item.id];
+            if (!prod) return "";
+            const unitPrice = state.priceMode === "retail" ? Number(prod.retail) : Number(prod.wholesale);
+            const subTotal = unitPrice * item.qty;
+            total += subTotal;
+            return `
+                <div class="cart-item">
+                    <div>
+                        <strong>${prod.name}</strong>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">${unitPrice} $ × ${item.qty} = ${subTotal.toFixed(2)} $</div>
+                    </div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="changeQty('${item.id}', -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+        document.getElementById("cartTotal").textContent = total.toFixed(2);
+    }
+
+    function togglePaymentBox() {
+        const method = document.getElementById("paymentMethod").value;
+        document.getElementById("shamCashCheckoutBox").style.display = method === "shamcash" ? "block" : "none";
+    }
+
+    function copyShamAccount() {
+        const acc = state.settings.shamAccount;
+        if (!acc) return alert("لم يتم تحديد حساب شام كاش بعد");
+        navigator.clipboard.writeText(acc);
+        alert("تم نسخ رقم حساب شام كاش: " + acc);
+    }
+
+    async function submitOrder() {
+        if (state.cart.length === 0) return alert("السلة فارغة!");
+        const name = document.getElementById("custName").value.trim();
+        const phone = document.getElementById("custPhone").value.trim();
+        const address = document.getElementById("custAddress").value.trim();
+        const payment = document.getElementById("paymentMethod").value;
+        const txId = document.getElementById("shamTxId").value.trim();
+
+        if (!name || !phone || !address) return alert("يرجى تعبئة الاسم ورقم الهاتف والعنوان.");
+        if (payment === "shamcash" && !txId) return alert("يرجى إدخال رقم عملية التحويل عبر شام كاش.");
+
+        let total = 0;
+        let itemsText = "";
+        const orderItems = [];
+
+        state.cart.forEach(item => {
+            const p = state.products[item.id];
+            if (p) {
+                const price = state.priceMode === "retail" ? Number(p.retail) : Number(p.wholesale);
+                total += price * item.qty;
+                itemsText += `• ${p.name} (العدد: ${item.qty}) - ${(price * item.qty).toFixed(2)}$\n`;
+                orderItems.push({ name: p.name, qty: item.qty, price });
+            }
+        });
+
+        const orderId = "ord_" + Date.now();
+        const newOrder = {
+            id: orderId,
+            date: new Date().toLocaleString("ar-EG"),
+            name,
+            phone,
+            address,
+            mode: state.priceMode === "retail" ? "مفرق" : "جملة",
+            payment: payment === "shamcash" ? `شام كاش (عملية: ${txId})` : "الدفع عند الاستلام",
+            total: total.toFixed(2),
+            items: orderItems
+        };
+
+        state.orders[orderId] = newOrder;
+        await saveToCloud("orders", state.orders);
+        renderAdminLists();
+
+        const msg = `📦 *طلب جديد من ${state.settings.storeName}*\n` +
+            `👤 *الاسم:* ${name}\n` +
+            `📞 *الهاتف:* ${phone}\n` +
+            `📍 *العنوان:* ${address}\n` +
+            `🏷 *نوع التسعير:* ${newOrder.mode}\n` +
+            `💳 *الدفع:* ${newOrder.payment}\n\n` +
+            `🛒 *القطع المطلوبة:*\n${itemsText}\n` +
+            `💰 *الإجمالي المطلوب:* ${total.toFixed(2)} $`;
+
+        state.cart = [];
+        updateCartCount();
+        renderCart();
+        closeModal("cartModal");
+
+        const waNum = (state.settings.whatsapp || "").replace(/\D/g, "");
+        if (waNum) {
+            window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, "_blank");
+        } else {
+            alert("تم حفظ الطلب في لوحة إدارة المتجر بنجاح!");
+        }
+    }
+
+    function openAdminAuth() {
+        document.getElementById("adminPassInput").value = "";
+        openModal("adminAuthModal");
+    }
+
+    function verifyAdmin() {
+        const input = document.getElementById("adminPassInput").value;
+        if (input === (state.settings.adminPass || "1234")) {
+            closeModal("adminAuthModal");
+            openModal("adminPanelModal");
+            renderAdminLists();
+        } else {
+            alert("كلمة المرور غير صحيحة!");
+        }
+    }
+
+    function switchTab(tabId, btn) {
+        document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabId).classList.add("active");
+        btn.classList.add("active");
+    }
+
+    async function addProduct() {
+        const name = document.getElementById("prodName").value.trim();
+        const retail = parseFloat(document.getElementById("prodRetail").value);
+        const wholesale = parseFloat(document.getElementById("prodWholesale").value);
+        const barcode = document.getElementById("prodBarcode").value.trim();
+        const desc = document.getElementById("prodDesc").value.trim();
+
+        if (!name || isNaN(retail) || isNaN(wholesale)) {
+            return alert("يرجى إدخال اسم القطعة وسعر المفرق وسعر الجملة.");
+        }
+
+        const id = "prod_" + Date.now();
+        state.products[id] = {
+            name,
+            retail,
+            wholesale,
+            barcode,
+            desc,
+            image: tempProdImg
+        };
+
+        const ok = await saveToCloud("products", state.products);
+        if (ok) {
+            document.getElementById("prodName").value = "";
+            document.getElementById("prodRetail").value = "";
+            document.getElementById("prodWholesale").value = "";
+            document.getElementById("prodBarcode").value = "";
+            document.getElementById("prodDesc").value = "";
+            document.getElementById("prodImgFile").value = "";
+            document.getElementById("prodImgPreview").style.display = "none";
+            tempProdImg = "";
+            renderProducts();
+            renderAdminLists();
+            alert("تمت إضافة القطعة وحفظها في السحابة بنجاح!");
+        }
+    }
+
+    async function deleteProduct(id) {
+        if (!confirm("هل أنت متأكد من حذف هذه القطعة؟")) return;
+        delete state.products[id];
+        await saveToCloud("products", state.products);
+        renderProducts();
+        renderAdminLists();
+    }
+
+    function renderAdminLists() {
+        const prodList = document.getElementById("adminProductsList");
+        const prods = Object.entries(state.products || {});
+        prodList.innerHTML = prods.length === 0
+            ? `<p style="color: var(--text-muted);">لا توجد منتجات مضافة بعد.</p>`
+            : prods.map(([id, p]) => `
+                <div class="admin-list-item">
+                    <div>
+                        <strong>${p.name}</strong>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">
+                            مفرق: ${p.retail}$ | جملة: ${p.wholesale}$ ${p.barcode ? `| باركود: ${p.barcode}` : ""}
+                        </div>
+                    </div>
+                    <button class="btn btn-danger" style="padding: 5px 10px;" onclick="deleteProduct('${id}')">حذف</button>
+                </div>
+            `).join("");
+
+        const ordList = document.getElementById("adminOrdersList");
+        const ords = Object.entries(state.orders || {}).reverse();
+        document.getElementById("ordersCountBadge").textContent = ords.length;
+
+        ordList.innerHTML = ords.length === 0
+            ? `<p style="color: var(--text-muted);">لا توجد طلبات واردة حالياً.</p>`
+            : ords.map(([id, o]) => `
+                <div class="admin-list-item" style="align-items: flex-start;">
+                    <div style="display: flex; gap: 10px; align-items: flex-start;">
+                        <input type="checkbox" class="order-checkbox" value="${id}" style="margin-top: 5px; transform: scale(1.2);">
+                        <div>
+                            <strong>${o.name} (${o.phone})</strong> - <span style="color: var(--accent); font-weight: bold;">${o.total}$ (${o.mode})</span>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">${o.date} | ${o.address} | ${o.payment}</div>
+                            <div style="font-size: 0.85rem; margin-top: 4px;">
+                                ${(o.items || []).map(i => `${i.name} (×${i.qty})`).join(" ، ")}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+    }
+
+    function toggleSelectAllOrders() {
+        const boxes = document.querySelectorAll(".order-checkbox");
+        const allChecked = Array.from(boxes).every(b => b.checked);
+        boxes.forEach(b => b.checked = !allChecked);
+    }
+
+    async function deleteSelectedOrders() {
+        const checked = Array.from(document.querySelectorAll(".order-checkbox:checked")).map(b => b.value);
+        if (checked.length === 0) return alert("يرجى تحديد طلب واحد على الأقل.");
+        if (!confirm(`حذف ${checked.length} طلب محدد؟`)) return;
+        checked.forEach(id => delete state.orders[id]);
+        await saveToCloud("orders", state.orders);
+        renderAdminLists();
+    }
+
+    async function deleteAllOrders() {
+        if (!confirm("هل أنت متأكد من حذف جميع الطلبات نهائياً؟")) return;
+        state.orders = {};
+        await saveToCloud("orders", {});
+        renderAdminLists();
+    }
+
+    function searchByBarcode() {
+        const code = document.getElementById("barcodeSearchInput").value.trim();
+        const resDiv = document.getElementById("barcodeSearchResult");
+        if (!code) return;
+
+        const found = Object.values(state.products || {}).find(p => p.barcode === code);
+        if (found) {
+            resDiv.innerHTML = `
+                <div style="background: var(--bg-primary); padding: 10px; border-radius: 8px; border: 1px solid var(--accent);">
+                    <strong>✅ تم العثور على القطعة: ${found.name}</strong><br>
+                    سعر المفرق: <span style="color: var(--accent);">${found.retail}$</span> | 
+                    سعر الجملة: <span style="color: #10b981;">${found.wholesale}$</span><br>
+                    <small>${found.desc || ""}</small>
+                </div>
+            `;
+        } else {
+            resDiv.innerHTML = `<p style="color: #ef4444;">❌ لم يتم العثور على أي قطعة بهذا الباركود.</p>`;
+        }
+    }
+
+    function applyPreset(bgPrimary, bgCard, accent, textMain) {
+        document.getElementById("colorBgPrimary").value = bgPrimary;
+        document.getElementById("colorBgCard").value = bgCard;
+        document.getElementById("colorAccent").value = accent;
+        document.getElementById("colorTextMain").value = textMain;
+    }
+
+    function applyThemeToDOM() {
+        const r = document.documentElement.style;
+        r.setProperty("--bg-primary", state.theme.bgPrimary);
+        r.setProperty("--bg-card", state.theme.bgCard);
+        r.setProperty("--accent", state.theme.accent);
+        r.setProperty("--text-main", state.theme.textMain);
+        r.setProperty("--bg-image", state.theme.bgImage ? `url(${state.theme.bgImage})` : "none");
+
+        document.getElementById("colorBgPrimary").value = state.theme.bgPrimary;
+        document.getElementById("colorBgCard").value = state.theme.bgCard;
+        document.getElementById("colorAccent").value = state.theme.accent;
+        document.getElementById("colorTextMain").value = state.theme.textMain;
+    }
+
+    async function saveThemeSettings() {
+        state.theme.bgPrimary = document.getElementById("colorBgPrimary").value;
+        state.theme.bgCard = document.getElementById("colorBgCard").value;
+        state.theme.accent = document.getElementById("colorAccent").value;
+        state.theme.textMain = document.getElementById("colorTextMain").value;
+        if (tempBgImg) state.theme.bgImage = tempBgImg;
+
+        applyThemeToDOM();
+        await saveToCloud("theme", state.theme);
+        alert("تم تطبيق وحفظ ألوان ومظهر المتجر سحابياً!");
+    }
+
+    async function removeBgImage() {
+        state.theme.bgImage = "";
+        tempBgImg = "";
+        applyThemeToDOM();
+        await saveToCloud("theme", state.theme);
+    }
+
+    async function resetTheme() {
+        state.theme = {
+            bgPrimary: "#0f172a",
+            bgCard: "#1e293b",
+            accent: "#f97316",
+            textMain: "#f8fafc",
+            bgImage: ""
+        };
+        applyThemeToDOM();
+        await saveToCloud("theme", state.theme);
+    }
+
+    function applySettingsToDOM() {
+        document.getElementById("displayStoreName").textContent = state.settings.storeName;
+        document.getElementById("displayStoreSub").textContent = state.settings.storeSub;
+        document.title = state.settings.storeName + " لقطع الدراجات النارية";
+
+        document.getElementById("setStoreName").value = state.settings.storeName;
+        document.getElementById("setStoreSub").value = state.settings.storeSub;
+        document.getElementById("setWhatsapp").value = state.settings.whatsapp || "";
+        document.getElementById("setShamAccount").value = state.settings.shamAccount || "";
+        document.getElementById("setFirebaseUrl").value = state.settings.firebaseUrl || DEFAULT_DB_URL;
+
+        document.getElementById("displayShamAccount").textContent = state.settings.shamAccount || "لم يتم تحديد الحساب بعد";
+        const qrImg = document.getElementById("displayShamQr");
+        if (state.settings.shamQr) {
+            qrImg.src = state.settings.shamQr;
+            qrImg.style.display = "block";
+        } else {
+            qrImg.style.display = "none";
+        }
+    }
+
+    async function saveAllSettings() {
+        state.settings.storeName = document.getElementById("setStoreName").value.trim() || "متجر أبو محمود";
+        state.settings.storeSub = document.getElementById("setStoreSub").value.trim();
+        state.settings.whatsapp = document.getElementById("setWhatsapp").value.trim();
+        state.settings.shamAccount = document.getElementById("setShamAccount").value.trim();
+        
+        const newUrl = document.getElementById("setFirebaseUrl").value.trim() || DEFAULT_DB_URL;
+        state.settings.firebaseUrl = newUrl;
+        localStorage.setItem("abumahmoud_db_url", newUrl);
+
+        const newPass = document.getElementById("setAdminPass").value.trim();
+        if (newPass) state.settings.adminPass = newPass;
+        if (tempShamQr) state.settings.shamQr = tempShamQr;
+
+        applySettingsToDOM();
+        const ok = await saveToCloud("settings", state.settings);
+        if (ok) alert("تم حفظ كافة الإعدادات في السحابة بنجاح!");
+    }
+
+    // Local Instant QR Code Generation & Download
+    function openStoreQrModal() {
+        const isLocal = window.location.protocol === "file:";
+        document.getElementById("localFileNotice").style.display = isLocal ? "block" : "none";
+        const customInput = document.getElementById("customQrUrlInput").value.trim();
+        generateStoreQr(customInput || window.location.href);
+        openModal("storeQrModal");
+    }
+
+    function generateStoreQr(customUrl) {
+        const container = document.getElementById("storeQrCanvas");
+        container.innerHTML = "";
+        let targetUrl = (customUrl || window.location.href).trim();
+        if (!targetUrl || targetUrl === "about:blank") {
+            targetUrl = "https://abu-mahmoud-store.web.app";
+        }
+        currentQrTargetUrl = targetUrl;
+
+        if (typeof QRCode !== "undefined") {
+            new QRCode(container, {
+                text: targetUrl,
+                width: 210,
+                height: 210,
+                colorDark: "#0f172a",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        } else {
+            const img = document.createElement("img");
+            img.src = `https://api.qrserver.com/v1/create-qr-code/?size=210x210&data=${encodeURIComponent(targetUrl)}`;
+            img.style.width = "210px";
+            img.style.height = "210px";
+            container.appendChild(img);
+        }
+    }
+
+    function downloadStoreQr() {
+        const container = document.getElementById("storeQrCanvas");
+        const canvas = container.querySelector("canvas");
+        const img = container.querySelector("img");
+
+        let dataUrl = "";
+        if (canvas) {
+            dataUrl = canvas.toDataURL("image/png");
+        } else if (img && img.src) {
+            dataUrl = img.src;
+        }
+
+        if (!dataUrl) {
+            generateStoreQr();
+            setTimeout(downloadStoreQr, 200);
+            return;
+        }
+
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = "abu-mahmoud-store-qr.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function copyStoreLink() {
+        const linkToCopy = currentQrTargetUrl || window.location.href;
+        navigator.clipboard.writeText(linkToCopy);
+        alert("تم نسخ رابط المتجر بنجاح:\n" + linkToCopy);
+    }
+
+    function openModal(id) {
+        document.getElementById(id).classList.add("open");
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove("open");
+    }
+
+    window.onload = initStore;
+</script>
+</body>
+</html>
